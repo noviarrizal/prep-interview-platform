@@ -3,7 +3,17 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
 
-const Agent = () => {
+enum CallStatus {
+  INACTIVE = "INACTIVE",
+  CONNECTING = "CONNECTING",
+  ACTIVE = "ACTIVE",
+  FINISHED = "FINISHED",
+}
+
+const Agent = ({ userName }: AgentProps) => {
+  const callStatus = CallStatus.ACTIVE;
+  const isSpeaking = true;
+
   return (
     <>
       <div className="call-view">
@@ -16,7 +26,7 @@ const Agent = () => {
               height={54}
               className="object-cover"
             />
-            <span className="animate-speak"></span>
+            {isSpeaking && <span className="animate-speak" />}
           </div>
           <h3>AI Interview</h3>
         </div>
@@ -29,7 +39,7 @@ const Agent = () => {
               height={539}
               className="rounded-full object-cover size-[120px]"
             />
-            <h3>Name</h3>
+            <h3>{userName}</h3>
           </div>
         </div>
       </div>
@@ -47,12 +57,26 @@ const Agent = () => {
         </div>
       </div>
       <div className="w-full flex justify-center">
-        <button className="relative btn-call" onClick={() => {}}>
-          <span
-            className={cn("absolute animate-ping rounded-full opacity-75")}
-          />
-          <span className="relative">Finished</span>
-        </button>
+        {callStatus !== "ACTIVE" ? (
+          <button className="relative btn-call" onClick={() => {}}>
+            <span
+              className={cn(
+                "absolute animate-ping rounded-full opacity-75",
+                callStatus !== "CONNECTING" && "hidden"
+              )}
+            />
+
+            <span className="relative">
+              {callStatus === "INACTIVE" || callStatus === "FINISHED"
+                ? "Call"
+                : ". . ."}
+            </span>
+          </button>
+        ) : (
+          <button className="btn-disconnect" onClick={() => {}}>
+            End
+          </button>
+        )}
       </div>
     </>
   );
