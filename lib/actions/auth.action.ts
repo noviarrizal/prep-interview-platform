@@ -73,7 +73,6 @@ export async function signIn(params: SignInParams) {
 
   try {
     const userRecord = await auth.getUserByEmail(email);
-    console.log(userRecord, "data value");
     if (!userRecord)
       return {
         success: false,
