@@ -13,6 +13,12 @@ enum CallStatus {
 const Agent = ({ userName }: AgentProps) => {
   const callStatus = CallStatus.ACTIVE;
   const isSpeaking = true;
+  const messages = [
+    "Whats your name?",
+    "My name is jane doe, nice to meet you!",
+  ];
+
+  const lastMessage = messages[messages.length - 1];
 
   return (
     <>
@@ -56,6 +62,13 @@ const Agent = ({ userName }: AgentProps) => {
           </p>
         </div>
       </div>
+      {messages.length > 0 && (
+        <div className="transcript-border">
+          <div className="transcript">
+            <p key={lastMessage}>{lastMessage}</p>
+          </div>
+        </div>
+      )}
       <div className="w-full flex justify-center">
         {callStatus !== "ACTIVE" ? (
           <button className="relative btn-call" onClick={() => {}}>
