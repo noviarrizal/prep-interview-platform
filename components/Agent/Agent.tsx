@@ -65,7 +65,15 @@ const Agent = ({ userName }: AgentProps) => {
       {messages.length > 0 && (
         <div className="transcript-border">
           <div className="transcript">
-            <p key={lastMessage}>{lastMessage}</p>
+            <p
+              key={lastMessage}
+              className={cn(
+                "transition-opacity duration-500 opacity-0",
+                "animate-fadeIn opacity-100"
+              )}
+            >
+              {lastMessage}
+            </p>
           </div>
         </div>
       )}
